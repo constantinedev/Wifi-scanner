@@ -14,14 +14,14 @@ def signal_handler(signal, frame):
 	sys.exit(1)
 
 def signal_exit(signal, frame):
-	print "Signal exit"
+	print ("Signal exit")
 	sys.exit(1)
 
 def usage():
 	if len(sys.argv) < 3:
 		print 
-		print "Usage:"
-		print "\twifi-scanner.py -i <interface>"
+		print ("Usage:")
+		print ("\twifi-scanner.py -i <interface>")
 		print
 		sys.exit(1)
 
@@ -69,7 +69,7 @@ def sniffpackets(packet):
 			if SRCMAC not in ssid_list.keys():
 				if '0050f204104a000110104400010210' in str(packet).encode("hex"):
 					crypto.add("WPS")
-				print "[+] New AP {0:5}\t{1:20}\t{2:20}\t{3:5}".format(channel, BSSID, ' / '.join(crypto), SSID)
+				print ("[+] New AP {0:5}\t{1:20}\t{2:20}\t{3:5}").format(channel, BSSID, ' / '.join(crypto), SSID)
 				ssid_list[SRCMAC] = SSID
 
 def init_process ():
@@ -79,12 +79,12 @@ def init_process ():
 	s = conf.L2socket(iface=newiface)
 
 def setup_monitor (iface):
-	print "Setting up sniff options..."
+	print ("Setting up sniff options...")
 	os.system('ifconfig ' + iface + ' down')
 	try:
 		os.system('iwconfig ' + iface + ' mode monitor')
 	except:
-		print "Failed to setup monitor mode"
+		print ("Failed to setup monitor mode")
 		sys.exit(1)
 	os.system('ifconfig ' + iface + ' up')
 	return iface
@@ -104,5 +104,5 @@ if __name__ == "__main__":
 	else:
 		newiface = str(parameters["-i"])
 	init_process()
-	print "Sniffing on interface " + str(newiface) + "...\n"
+	print ("Sniffing on interface ") + str(newiface) + "...\n"
 	sniff(iface=newiface, prn=sniffpackets, store=0)
